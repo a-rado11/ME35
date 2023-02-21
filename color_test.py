@@ -104,8 +104,6 @@ while True:
     
     if b/(r + g + b) > 0.3:
         print("we are at an intersection!")
-        #This is set up for purple... need to have if statements to determine what color is at the intersection -> update
-        # it on whether it's black, red, or purple
         
         lower = 0.33
         upper = 0.35
@@ -115,13 +113,10 @@ while True:
             i = i + 1
 
     elif g/(r + g + b) > lower and g/(r + g + b) < upper:
-        print("let's go")
         foward()
     elif g/(r + g + b) > upper:
-        print("we got this")
         left()
     elif g/(r + g + b) < lower:
-        print("let's go!")
         right()
     
         
