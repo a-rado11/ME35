@@ -6,10 +6,57 @@ import cv2
 from picamera2 import Picamera2
 from libcamera import controls
 import time
+import board
+from adafruit_apds9960.apds9960 import APDS9960
+from adafruit_apds9960 import colorutility
+import RPistepper as stp
+
+M1_pins = [18, 17, 27, 22]
+M1 = stp.Motor(M1_pins)
+M2_pins = [5, 6, 26, 16]
+M2 = stp.Motor(M2_pins)
 
 picam2 = Picamera2() # assigns camera variable
 picam2.set_controls({"AfMode": controls.AfModeEnum.Continuous}) # sets auto focus mode
 picam2.start() # activates camera
+
+def left():
+    i = 0
+    while i < 10:
+        M1.move(1)
+        i = i + 1
+
+def right_reverse():
+    i = 0
+    while i < 20:
+        M1.move(-1)
+        i = i + 1
+
+def right():
+    i = 0
+    while i < 10:
+        M2.move(-1)
+        i = i + 1
+
+def left_reverse():
+    i = 0
+    while i < 20:
+        M2.move(1)
+        i = i + 1
+
+def foward():
+    i = 0
+    while i < 25:
+        M1.move(1)
+        M2.move(-1)
+        i = i + 1
+
+def reverse():
+    i = 0
+    while i < 25:
+        M1.move(-1)
+        M2.move(1)
+        i = i + 1
 
 time.sleep(1) # wait to give camera time to start up
  
@@ -50,12 +97,15 @@ while(True):
         # determine location of centroid in x direction and adjust steering recommendation
         if cx >= 120:
             print("Turn Left!")
+            left()
  
         if cx < 120 and cx > 50:
             print("On Track!")
+            foward()
  
         if cx <= 50:
             print("Turn Right")
+            right()
  
     else:
         print("I don't see the line")
