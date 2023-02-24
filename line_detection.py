@@ -99,15 +99,15 @@ while(True):
         # determine location of centroid in x direction and adjust steering recommendation
         if cx >= 120:
             print("Turn Left!")
-            left()
+            #left()
  
         if cx < 120 and cx > 50:
             print("On Track!")
-            foward()
+            #foward()
  
         if cx <= 50:
             print("Turn Right")
-            right()
+            #right()
  
     else:
         print("I don't see the line")
