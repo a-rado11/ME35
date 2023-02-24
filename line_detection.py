@@ -93,6 +93,8 @@ while(True):
         cv2.line(image,(0,cy),(1280,cy),(255,0,0),1) # display horizontal line at y value of centroid
  
         cv2.drawContours(image, contours, -1, (0,255,0), 2) # display green lines for all contours
+
+        print(cx)
          
         # determine location of centroid in x direction and adjust steering recommendation
         if cx >= 120:
