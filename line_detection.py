@@ -103,7 +103,7 @@ while(True):
  
         if cx < 540 and cx > 100:
             print("On Track!")
-            #foward()
+            foward()
  
         if cx <= 100:
             print("Turn Right")
