@@ -22,38 +22,38 @@ picam2.start() # activates camera
 
 def left():
     i = 0
-    while i < 5:
+    while i < 2:
         M1.move(1)
         i = i + 1
 
 def right_reverse():
     i = 0
-    while i < 5:
+    while i < 2:
         M1.move(-1)
         i = i + 1
 
 def right():
     i = 0
-    while i < 5:
+    while i < 2:
         M2.move(-1)
         i = i + 1
 
 def left_reverse():
     i = 0
-    while i < 5:
+    while i < 2:
         M2.move(1)
         i = i + 1
 
 def foward():
     i = 0
-    while i < 5:
+    while i < 2:
         M1.move(1)
         M2.move(-1)
         i = i + 1
 
 def reverse():
     i = 0
-    while i < 5:
+    while i < 2:
         M1.move(-1)
         M2.move(1)
         i = i + 1
