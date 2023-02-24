@@ -70,7 +70,7 @@ while(True):
     # crop_img = image[60:120, 0:160]
  
     # Convert to grayscale
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
  
     # Gaussian blur
     blur = cv2.GaussianBlur(gray,(5,5),0)
@@ -89,10 +89,10 @@ while(True):
         cx = int(M['m10']/M['m00']) # find x component of centroid location
         cy = int(M['m01']/M['m00']) # find y component of centroid location
  
-        cv2.line(crop_img,(cx,0),(cx,720),(255,0,0),1) # display vertical line at x value of centroid
-        cv2.line(crop_img,(0,cy),(1280,cy),(255,0,0),1) # display horizontal line at y value of centroid
+        cv2.line(image,(cx,0),(cx,720),(255,0,0),1) # display vertical line at x value of centroid
+        cv2.line(image,(0,cy),(1280,cy),(255,0,0),1) # display horizontal line at y value of centroid
  
-        cv2.drawContours(crop_img, contours, -1, (0,255,0), 2) # display green lines for all contours
+        cv2.drawContours(image, contours, -1, (0,255,0), 2) # display green lines for all contours
          
         # determine location of centroid in x direction and adjust steering recommendation
         if cx >= 120:
@@ -111,7 +111,7 @@ while(True):
         print("I don't see the line")
  
     # Display the resulting frame
-    cv2.imshow('frame',crop_img)
+    cv2.imshow('frame',image)
     
     # Check for "q" key press to end program
     if cv2.waitKey(1) & 0xFF == ord('q'):
