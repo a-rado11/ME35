@@ -67,10 +67,10 @@ while(True):
     cv2.imshow('img',image)
  
     # Crop the image
-    crop_img = image[60:120, 0:160]
+    # crop_img = image[60:120, 0:160]
  
     # Convert to grayscale
-    gray = cv2.cvtColor(crop_img, cv2.COLOR_BGR2GRAY)
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
  
     # Gaussian blur
     blur = cv2.GaussianBlur(gray,(5,5),0)
