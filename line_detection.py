@@ -88,7 +88,7 @@ while(True):
     #total = total_pixels[0]*total_pixels[1]
  
     # Gaussian blur
-    blur = cv2.GaussianBlur(cv2.cvtColor(image),(5,5),0)
+    blur = cv2.GaussianBlur(gray,(5,5),0)
  
     # Color thresholding
     input_threshold,comp_threshold = cv2.threshold(blur,60,255,cv2.THRESH_BINARY_INV)
