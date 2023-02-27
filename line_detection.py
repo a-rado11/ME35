@@ -70,10 +70,10 @@ while(True):
     # crop_img = image[60:120, 0:160]
  
     # Convert to grayscale
-    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    #gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
  
     # Gaussian blur
-    blur = cv2.GaussianBlur(gray,(5,5),0)
+    blur = cv2.GaussianBlur(cv2.cvtColor(image),(5,5),0)
  
     # Color thresholding
     input_threshold,comp_threshold = cv2.threshold(blur,60,255,cv2.THRESH_BINARY_INV)
