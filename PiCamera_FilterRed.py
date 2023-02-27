@@ -27,7 +27,7 @@ img = cv.imread("image.jpg") #read image with open cv, to get the bgr value of o
     #for y in range(4608):
         #print(img[x][y])
 
-print(img[1296][2304])
+print(img[0][0])
 
 total_pixels = img.shape #returns [2529, 4608] as the shape of the image
 
