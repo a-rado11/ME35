@@ -23,9 +23,9 @@ picam2.capture_file(img_name) #take image
 
 img = cv.imread("image.jpg") #read image with open cv, to get the bgr value of one pixel index using print(img[row][col])
 
-for x in range(2592)
-    for y in range(4608)
-    print(img[x][y])
+for x in range(2592):
+    for y in range(4608):
+        print(img[x][y])
 
 total_pixels = img.shape #returns [2529, 4608] as the shape of the image
 
