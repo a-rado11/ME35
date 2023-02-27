@@ -17,7 +17,6 @@ M2_pins = [5, 6, 26, 16]
 M2 = stp.Motor(M2_pins)
 
 picam2 = Picamera2() # assigns camera variable
-#picam2.set_controls({"AfMode": controls.AfModeEnum.Continuous}) # sets auto focus mode
 
 capture_config = picam2.create_still_configuration() #automatically 4608x2592 width by height (columns by rows) pixels
 picam2.configure(capture_config)
@@ -73,21 +72,14 @@ while(True):
     # Display camera input
     image = picam2.capture_array("main")
     cv2.imshow('img',image)
- 
-    # Crop the image
-    #crop_img = image[60:120, 0:160]
- 
-    # Convert to grayscale
-    #gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
     #create boundary for red values as two arrays
     lower = np.array([0,30,0]) #lower range of bgr values for red
     upper = np.array([60,255,60]) #upper range of bgr values for red
 
-    #determine if the pixel in the image has bgr values within the range
+    #determine if the pixel in the image has bgr values within the range & putting the image in grayscale
     image_mask = cv2.inRange(image,lower,upper) #returns array of 0s & 255s, 255=white=within range, 0=black=not in range
-    #cv2.imwrite("image2.jpg", image_mask) #write the mask to a new file so that it can be viewed
-    image_mask = ~image_mask
+    image_mask = ~image_mask # inverting the photo such that tape line is black; everything else is white.
  
     # Gaussian blur
     blur = cv2.GaussianBlur(image_mask,(5,5),0)
@@ -130,6 +122,8 @@ while(True):
  
     else:
         print("I don't see the line")
+
+        # Remembering the last direction so that the robot can backtrack if line is lost
         if x == 1:
             left()
         elif x == 3:
