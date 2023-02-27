@@ -70,7 +70,7 @@ while(True):
     # crop_img = image[60:120, 0:160]
  
     # Convert to grayscale
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
     #img = cv.imread(image) #read image with open cv, to get the bgr value of one pixel index using print(img[row][col])
 
