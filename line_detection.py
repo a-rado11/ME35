@@ -63,14 +63,29 @@ time.sleep(1) # wait to give camera time to start up
 while(True):
     
     # Display camera input
-    image = picam2.capture_array("main")
-    cv2.imshow('img',image)
- 
+    image = picam2.capture_array("main") # taking the picture
+    cv2.imshow('img',image) # displaying the image
+
     # Crop the image
     # crop_img = image[60:120, 0:160]
  
     # Convert to grayscale
-    #gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+    #img = cv.imread(image) #read image with open cv, to get the bgr value of one pixel index using print(img[row][col])
+
+    #total_pixels = image.shape #returns [2529, 4608] as the shape of the image
+
+    #create boundary for red values as two arrays
+    #lower = np.array([0,130,0]) #lower range of bgr values for red
+    #upper = np.array([70,255,70]) #upper range of bgr values for red
+
+    #determine if the pixel in the image has bgr values within the range
+    #image_mask = cv.inRange(img,lower,upper) #returns array of 0s & 255s, 255=white=within range, 0=black=not in range
+
+    #in_range = np.count_nonzero(image_mask) #count the number of elements in the array that are not zero (in other words elements that are in the green range)
+    #not_in_range = total_pixels[0]*total_pixels[1] - in_range 
+    #total = total_pixels[0]*total_pixels[1]
  
     # Gaussian blur
     blur = cv2.GaussianBlur(cv2.cvtColor(image),(5,5),0)
