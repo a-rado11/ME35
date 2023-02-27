@@ -17,7 +17,12 @@ M2_pins = [5, 6, 26, 16]
 M2 = stp.Motor(M2_pins)
 
 picam2 = Picamera2() # assigns camera variable
-picam2.set_controls({"AfMode": controls.AfModeEnum.Continuous}) # sets auto focus mode
+#picam2.set_controls({"AfMode": controls.AfModeEnum.Continuous}) # sets auto focus mode
+
+capture_config = picam2.create_still_configuration() #automatically 4608x2592 width by height (columns by rows) pixels
+picam2.configure(capture_config)
+picam2.set_controls({"AfMode": controls.AfModeEnum.Continuous}) #sets auto focus mode
+
 picam2.start() # activates camera
 
 def left():
@@ -59,6 +64,9 @@ def reverse():
         i = i + 1
 
 time.sleep(1) # wait to give camera time to start up
+
+x = 0
+y = 0
  
 while(True):
     
@@ -67,16 +75,25 @@ while(True):
     cv2.imshow('img',image)
  
     # Crop the image
-    crop_img = image[60:120, 0:160]
+    #crop_img = image[60:120, 0:160]
  
     # Convert to grayscale
-    gray = cv2.cvtColor(crop_img, cv2.COLOR_BGR2GRAY)
+    #gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+    #create boundary for red values as two arrays
+    lower = np.array([0,30,0]) #lower range of bgr values for red
+    upper = np.array([60,255,60]) #upper range of bgr values for red
+
+    #determine if the pixel in the image has bgr values within the range
+    image_mask = cv2.inRange(image,lower,upper) #returns array of 0s & 255s, 255=white=within range, 0=black=not in range
+    #cv2.imwrite("image2.jpg", image_mask) #write the mask to a new file so that it can be viewed
+    image_mask = ~image_mask
  
     # Gaussian blur
-    blur = cv2.GaussianBlur(gray,(5,5),0)
+    blur = cv2.GaussianBlur(image_mask,(5,5),0)
  
     # Color thresholding
-    input_threshold,comp_threshold = cv2.threshold(blur,60,255,cv2.THRESH_BINARY_INV)
+    input_threshold,comp_threshold = cv2.threshold(blur,0,255,cv2.THRESH_BINARY_INV)
  
     # Find the contours of the frame
     contours,hierarchy = cv2.findContours(comp_threshold.copy(), cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
@@ -89,29 +106,43 @@ while(True):
         cx = int(M['m10']/M['m00']) # find x component of centroid location
         cy = int(M['m01']/M['m00']) # find y component of centroid location
  
-        cv2.line(crop_img,(cx,0),(cx,720),(255,0,0),1) # display vertical line at x value of centroid
-        cv2.line(crop_img,(0,cy),(1280,cy),(255,0,0),1) # display horizontal line at y value of centroid
+        cv2.line(image,(cx,0),(cx,720),(255,0,0),1) # display vertical line at x value of centroid
+        cv2.line(image,(0,cy),(1280,cy),(255,0,0),1) # display horizontal line at y value of centroid
  
-        cv2.drawContours(crop_img, contours, -1, (0,255,0), 2) # display green lines for all contours
+        cv2.drawContours(image, contours, -1, (0,255,0), 2) # display green lines for all contours
          
         # determine location of centroid in x direction and adjust steering recommendation
-        if cx >= 540:
+        print(cx)
+        if cx >=2377:
             print("Turn Left!")
             right()
+            x = 1
  
-        if cx < 540 and cx > 100:
+        if cx < 2377 and cx > 570:
             print("On Track!")
             foward()
+            y = 1
  
-        if cx <= 100:
+        if cx <= 570:
             print("Turn Right")
             left()
+            x = 3
  
     else:
         print("I don't see the line")
+        if x == 1:
+            left()
+        elif x == 3:
+            right()
+        elif y == 1:
+            y = 0
+            if x == 1:
+                left()
+            elif x == 3:
+                right()
  
     # Display the resulting frame
-    cv2.imshow('frame',crop_img)
+    cv2.imshow('frame',image)
     
     # Check for "q" key press to end program
     if cv2.waitKey(1) & 0xFF == ord('q'):
