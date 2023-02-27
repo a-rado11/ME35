@@ -26,8 +26,8 @@ img = cv.imread("image.jpg") #read image with open cv, to get the bgr value of o
 total_pixels = img.shape #returns [2529, 4608] as the shape of the image
 
 #create boundary for red values as two arrays
-lower = np.array([0,0,130]) #lower range of bgr values for red
-upper = np.array([70,70,255]) #upper range of bgr values for red
+lower = np.array([0,130,0]) #lower range of bgr values for red
+upper = np.array([70,255,70]) #upper range of bgr values for red
 
 #determine if the pixel in the image has bgr values within the range
 image_mask = cv.inRange(img,lower,upper) #returns array of 0s & 255s, 255=white=within range, 0=black=not in range
