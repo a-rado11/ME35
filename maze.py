@@ -39,7 +39,6 @@ class SimplePublisher(Node):
         URL = 'https://api.airtable.com/v0/appL0KSNq1XGwCw9c/tblVoD3AuRO2XDSnw?api_key=keyFAwNEQGK7Y4gpV'
         r = requests.get(url = URL, params = {})
         data = r.json()
-        print(data)
 
 
         # Defining Twist Variable:
