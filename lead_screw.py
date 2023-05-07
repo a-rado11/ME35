@@ -1,3 +1,4 @@
+# Kelly Macdonald, Anthony Radovanovich
 # Code to spin DC motor in two directions
 
 import RPi.GPIO as GPIO
