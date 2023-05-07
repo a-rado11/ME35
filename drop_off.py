@@ -1,4 +1,4 @@
-# Kelly MacDonald, Anthony Radovanovich
+# Kelly MacDonald
 # Import libraries
 import RPi.GPIO as GPIO
 import time
